@@ -30,4 +30,10 @@ userController.login = async (nickname, password, socketId) => {
   return user;
 };
 
+userController.checkUser = async (socketId) => {
+  const user = await User.findOne({ token: socketId });
+  if (!user) throw new Error("user not found");
+  return user;
+};
+
 module.exports = userController;

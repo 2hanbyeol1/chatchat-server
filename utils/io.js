@@ -1,4 +1,5 @@
 const UserController = require("../Controllers/user");
+const ChatController = require("../Controllers/chat");
 
 module.exports = function (io) {
   // io 관련 작업 (emit, on)
@@ -9,6 +10,17 @@ module.exports = function (io) {
       try {
         const user = await UserController.login(nickname, password, socket.id);
         callback({ ok: true, data: user }); // 비밀번호 오류인 경우 user 값은 null
+      } catch (error) {
+        callback({ ok: false, error: error.message });
+      }
+    });
+
+    socket.on("sendMessage", async (message, callback) => {
+      try {
+        const user = await UserController.checkUser(socket.id);
+        const newMessage = await ChatController.saveChat(message, user);
+        io.emit("message", newMessage);
+        callback({ ok: true });
       } catch (error) {
         callback({ ok: false, error: error.message });
       }
