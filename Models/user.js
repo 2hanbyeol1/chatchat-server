@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
     required: [true, "User must type nickname"],
     unique: true,
   },
+  password: {
+    type: String,
+    required: [true, "User must type password"],
+  },
   token: {
     type: String,
   },
