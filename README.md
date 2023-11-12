@@ -9,6 +9,9 @@
 
 ## 라이브러리
 
-- react-router-dom
-- styled-components
-- gh-pages
+- cors
+- dotenv
+- express
+- http
+- mongoose
+- socket.io
